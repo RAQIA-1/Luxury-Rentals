@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luxury Rentals — Private Mobility Concierge · Gauteng</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,200;0,300;0,400;1,200;1,300&family=Montserrat:wght@100;200;300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #000000;
+    --charcoal: #0d0d0d;
+    --surface: #111111;
+    --white: #ffffff;
+    --grey-border: rgba(255,255,255,0.08);
+    --grey-mid: rgba(255,255,255,0.4);
+    --grey-dim: rgba(255,255,255,0.15);
+    --accent: rgba(255,255,255,0.06);
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Montserrat', sans-serif;
+    --transition: 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-sans);
+    font-weight: 200;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    position: fixed;
+    width: 8px; height: 8px;
+    background: var(--white);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.3s, height 0.3s, opacity 0.3s;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 32px; height: 32px;
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease-out, width 0.3s, height 0.3s;
+  }
+  body:has(a:hover) .cursor { width: 12px; height: 12px; }
+  body:has(a:hover) .cursor-ring { width: 48px; height: 48px; }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 1px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 52px;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--grey-border);
+    transition: padding var(--transition);
+  }
+  nav.scrolled { padding: 18px 52px; }
+
+  .nav-logo {
+    font-family: var(--font-serif);
+    font-weight: 200;
+    font-size: 1.4rem;
+    letter-spacing: 0.25em;
+    color: var(--white);
+    text-decoration: none;
+    cursor: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 44px;
+    list-style: none;
+    align-items: center;
+  }
+  .nav-links a {
+    font-family: var(--font-sans);
+    font-weight: 200;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.4s;
+    cursor: none;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0;
+    width: 0; height: 1px;
+    background: var(--white);
+    transition: width 0.4s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-reserve {
+    border: 1px solid rgba(255,255,255,0.35) !important;
+    padding: 8px 22px !important;
+    color: var(--white) !important;
+    transition: background var(--transition), color var(--transition) !important;
+  }
+  .nav-reserve:hover { background: var(--white) !important; color: var(--black) !important; }
+  .nav-reserve::after { display: none !important; }
+
+  .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: none; }
+  .nav-toggle span { width: 24px; height: 1px; background: var(--white); transition: var(--transition); }
+
+  /* HERO */
+  #hero {
+    position: relative;
+    width: 100vw; height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-video-bg {
+    position: absolute;
+    inset: 0;
+    background: 
+      linear-gradient(180deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.85) 100%),
+      url('https://images.unsplash.com/photo-1655827763464-0191f35ca779?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center/cover no-repeat;
+    animation: subtle-zoom 20s ease-in-out infinite alternate;
+  }
+  @keyframes subtle-zoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.04); }
+  }
+
+  .hero-content {
+    position: relative;
+    text-align: center;
+    animation: hero-reveal 2s ease-out forwards;
+    opacity: 0;
+  }
+  @keyframes hero-reveal {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-monogram {
+    font-family: var(--font-serif);
+    font-weight: 200;
+    font-size: 1.1rem;
+    letter-spacing: 0.6em;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 32px;
+    display: block;
+  }
+
+  .hero-title {
+    font-family: var(--font-serif);
+    font-weight: 200;
+    font-size: clamp(3.2rem, 8vw, 8rem);
+    letter-spacing: 0.3em;
+    line-height: 1;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .hero-est {
+    font-family: var(--font-sans);
+    font-weight: 100;
+    font-size: 0.6rem;
+    letter-spacing: 0.5em;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  .hero-tagline {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 200;
+    font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.08em;
+    margin-bottom: 56px;
+  }
+
+  .btn-reserve {
+    display: inline-block;
+    padding: 16px 44px;
+    border: 1px solid rgba(255,255,255,0.5);
+    color: var(--white);
+    text-decoration: none;
+    font-family: var(--font-sans);
+    font-weight: 200;
+    font-size: 0.62rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    transition: background var(--transition), color var(--transition), border-color var(--transition);
+    cursor: none;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-reserve::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--white);
+    transform: translateX(-100%);
+    transition: transform var(--transition);
+    z-index: -1;
+  }
+  .btn-reserve:hover { color: var(--black); border-color: var(--white); }
+  .btn-reserve:hover::before { transform: translateX(0); }
+
+  .hero-scroll-indicator {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    animation: fade-in-up 2s 1.5s ease forwards;
+    opacity: 0;
+  }
+  @keyframes fade-in-up {
+    from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+  .hero-scroll-indicator span {
+    font-size: 0.5rem;
+    letter-spacing: 0.4em;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
+  }
+  .scroll-line {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+    animation: scroll-pulse 2s ease-in-out infinite;
+  }
+  @keyframes scroll-pulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 0.8; transform: scaleY(1.2); }
+  }
+
+  /* SECTIONS */
+  section { position: relative; }
+
+  .section-label {
+    font-family: var(--font-sans);
+    font-weight: 100;
+    font-size: 0.55rem;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: var(--font-serif);
+    font-weight: 200;
+    font-size: clamp(2rem, 4vw, 3.6rem);
+    letter-spacing: 0.08em;
+    line-height: 1.1;
+    color: var(--white);
+  }
+
+  /* FLEET */
+  #fleet {
+    padding: 120px 0;
+    background: var(--black);
+  }
+
+  .fleet-header {
+    padding: 0 52px;
+    margin-bottom: 72px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .fleet-count {
+    font-family: var(--font-serif);
+    font-weight: 200;
+    font-size: 4rem;
+    color: rgba(255,255,255,0.06);
+    line-height: 1;
+  }
+
+  .vehicle-list { width: 100%; }
+
+  .vehicle-item {
+    display: grid;
+    grid-template-columns: 64px 1fr auto auto;
+    align-items: center;
+    gap: 32px;
+    padding: 24px 52px;
+    border-top: 1px solid var(--grey-border);
+    cursor: none;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.5s;
+  }
+  .vehicle-item:last-child { border-bottom: 1px solid var(--grey-border); }
+  .vehicle-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.025);
+    transform: translateX(-100%);
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .vehicle-item:hover::before { transform: translateX(0); }
+
+  .vehicle-index {
+    font-family: var(--font-serif);
+    font-weight: 200;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.1em;
+  }
+
+  .vehicle-name {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(1rem, 2vw, 1.35rem);
+    letter-spacing: 0.05em;
+    color: var(--white);
+    transition: letter-spacing 0.4s;
+  }
+  .vehicle-item:hover .vehicle-name { letter-spacing: 0.1em; }
+
+  .vehicle-category {
+    font-family: var(--font-sans);
+    font-weight: 100;
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .vehicle-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-sans);
+    font-weight: 100;
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+  }
+  .status-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+  }
+  .status-dot.available { background: rgba(200,255,200,0.6); }
+
+  /* VEHICLE PREVIEW MODAL */
+  .vehicle-preview {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.97);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s;
+  }
+  .vehicle-preview.active { opacity: 1; pointer-events: all; }
+
+  .preview-inner {
+    width: 90%;
+    max-width: 1100px;
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 0;
+    height: 75vh;
+    border: 1px solid var(--grey-border);
+    transform: translateY(30px);
+    transition: transform 0.5s;
+  }
+  .vehicle-preview.active .preview-inner { transform: translateY(0); }
+
+  .preview-image {
+    position: relative;
+    overflow: hidden;
+    background: var(--charcoal);
+  }
+  .preview-image img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    opacity: 0.85;
+    transition: opacity 0.4s, transform 8s;
+    transform: scale(1.05);
+  }
+  .vehicle-preview.active .preview-image img { transform: scale(1); }
+
+  .preview-details {
+    background: #080808;
+    padding: 56px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-left: 1px solid var(--grey-border);
+  }
+
+  .preview-close {
+    position: absolute;
+    top: 28px; right: 36px;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.4);
+    font-size: 1.2rem;
+    cursor: none;
+    transition: color 0.3s;
+    font-weight: 100;
+    font-family: var(--font-serif);
+    letter-spacing: 0.1em;
+  }
+  .preview-close:hover { color: var(--white); }
+
+  .preview-label {
+    font-family: var(--font-sans);
+    font-size: 0.5rem;
+    letter-spacing: 0.5em;
+    color: rgba(255,255,255,0.25);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .preview-name {
+    font-family: var(--font-serif);
+    font-weight: 200;
+    font-size: 2rem;
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+    line-height: 1.1;
+  }
+
+  .preview-category {
+    font-family: var(--font-sans);
+    font-weight: 100;
+    font-size: 0.58rem;
+    letter-spacing: 0.3em;
+    color: rgba(255,255,255,0.35);
+    text-transform: uppercase;
+    margin-bottom: 36px;
+  }
+
+  .preview-specs {
+    border-top: 1px solid var(--grey-border);
+    padding-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+
+  .spec-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .spec-key {
+    font-family: var(--font-sans);
+    font-size: 0.52rem;
+    letter-spacing: 0.3em;
+    color: rgba(255,255,255,0.25);
+    text-transform: uppercase;
+  }
+
+  .spec-val {
+    font-family: var(--font-serif);
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .preview-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .btn-whatsapp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 24px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--white);
+    text-decoration: none;
+    font-family: var(--font-sans);
+    font-weight: 200;
+    font-size: 0.58rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    transition: background var(--transition), border-color var(--transition);
+    cursor: none;
+  }
+  .btn-whatsapp:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); }
+
+  /* CONCIERGE */
+  #concierge {
+    padding: 120px 52px;
+    background: var(--charcoal);
+    border-top: 1px solid var(--grey-border);
+  }
+
+  .concierge-header { margin-bottom: 80px; }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1px;
+    background: var(--grey-border);
+    border: 1px solid var(--grey-border);
+  }
+
+  .service-card {
+    background: var(--charcoal);
+    padding: 48px 40px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s;
+  }
+  .service-card:hover { background: rgba(255,255,255,0.03); }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 1px; height: 0;
+    background: var(--white);
+    transition: height 0.5s;
+  }
+  .service-card:hover::before { height: 100%; }
+
+  .service-icon {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    opacity: 0.5;
+    display: block;
+  }
+
+  .service-name {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: 1.15rem;
+    letter-spacing: 0.04em;
+    margin-bottom: 10px;
+    color: var(--white);
+  }
+
+  .service-desc {
+    font-family: var(--font-sans);
+    font-weight: 100;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.8;
+    text-transform: uppercase;
+  }
+
+  /* RESERVE */
+  #reserve {
+    padding: 120px 52px;
+    background: var(--black);
+    border-top: 1px solid var(--grey-border);
+  }
+
+  .reserve-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    margin-top: 72px;
+  }
+
+  .reserve-form { display: flex; flex-direction: column; gap: 0; }
+
+  .form-field {
+    position: relative;
+    border-bottom: 1px solid var(--grey-border);
+    margin-bottom: 0;
+  }
+  .form-field:first-child { border-top: 1px solid var(--grey-border); }
+
+  .form-field label {
+    position: absolute;
+    top: 18px; left: 0;
+    font-family: var(--font-sans);
+    font-size: 0.5rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+    transition: color 0.3s;
+    pointer-events: none;
+  }
+  .form-field:focus-within label { color: rgba(255,255,255,0.5); }
+
+  .form-field input,
+  .form-field select,
+  .form-field textarea {
+    width: 100%;
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--white);
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    padding: 38px 0 14px 0;
+    cursor: none;
+  }
+
+  .form-field select option { background: var(--black); }
+
+  .form-field textarea { resize: none; height: 100px; }
+
+  .reserve-info { padding-top: 20px; }
+
+  .reserve-quote {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 200;
+    font-size: 1.8rem;
+    line-height: 1.4;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 48px;
+    border-left: 1px solid rgba(255,255,255,0.15);
+    padding-left: 32px;
+  }
+
+  .contact-options { display: flex; flex-direction: column; gap: 16px; margin-bottom: 48px; }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-decoration: none;
+    color: rgba(255,255,255,0.5);
+    font-family: var(--font-sans);
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    transition: color 0.3s;
+    cursor: none;
+  }
+  .contact-item:hover { color: var(--white); }
+  .contact-item span:first-child { font-size: 0.9rem; opacity: 0.6; }
+
+  /* ABOUT */
+  #about {
+    padding: 120px 52px;
+    background: var(--surface);
+    border-top: 1px solid var(--grey-border);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .about-visual {
+    aspect-ratio: 4/3;
+    background: 
+      linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7)),
+      url('https://images.unsplash.com/photo-1571001437100-9d282569809b?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center/cover;
+    position: relative;
+  }
+  .about-visual::after {
+    content: '';
+    position: absolute;
+    right: -1px; top: 20%;
+    width: 1px; height: 60%;
+    background: rgba(255,255,255,0.08);
+  }
+
+  .about-body { max-width: 520px; }
+
+  .about-copy {
+    font-family: var(--font-serif);
+    font-weight: 200;
+    font-size: clamp(1.6rem, 2.5vw, 2rem);
+    line-height: 1.5;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 36px;
+  }
+
+  .about-detail {
+    font-family: var(--font-sans);
+    font-weight: 100;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.35);
+    line-height: 2;
+    margin-bottom: 48px;
+  }
+
+  .coverage-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .coverage-tag {
+    font-family: var(--font-sans);
+    font-weight: 100;
+    font-size: 0.5rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    border: 1px solid var(--grey-border);
+    padding: 6px 14px;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 80px 52px 48px;
+    background: var(--black);
+    border-top: 1px solid var(--grey-border);
+    text-align: center;
+  }
+
+  .footer-monogram {
+    font-family: var(--font-serif);
+    font-weight: 200;
+    font-size: 2.2rem;
+    letter-spacing: 0.4em;
+    color: rgba(255,255,255,0.15);
+    margin-bottom: 20px;
+  }
+
+  .footer-name {
+    font-family: var(--font-sans);
+    font-weight: 100;
+    font-size: 0.55rem;
+    letter-spacing: 0.6em;
+    color: rgba(255,255,255,0.2);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .footer-sub {
+    font-family: var(--font-sans);
+    font-weight: 100;
+    font-size: 0.5rem;
+    letter-spacing: 0.3em;
+    color: rgba(255,255,255,0.12);
+    margin-bottom: 48px;
+  }
+
+  .footer-social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 48px;
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: rgba(255,255,255,0.3);
+    font-family: var(--font-sans);
+    font-weight: 100;
+    font-size: 0.5rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+    cursor: none;
+  }
+  .social-link:hover { color: var(--white); }
+  .social-link svg { width: 14px; height: 14px; }
+
+  .footer-divider {
+    width: 1px; height: 24px;
+    background: var(--grey-border);
+  }
+
+  .footer-legal {
+    font-family: var(--font-sans);
+    font-weight: 100;
+    font-size: 0.45rem;
+    letter-spacing: 0.3em;
+    color: rgba(255,255,255,0.08);
+    text-transform: uppercase;
+  }
+
+  /* FADE IN ON SCROLL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    nav.scrolled { padding: 14px 24px; }
+    .nav-links { display: none; flex-direction: column; position: fixed; inset: 0; background: rgba(0,0,0,0.98); align-items: center; justify-content: center; gap: 32px; }
+    .nav-links.open { display: flex; }
+    .nav-links a { font-size: 0.75rem; }
+    .nav-toggle { display: flex; }
+
+    .hero-title { font-size: clamp(2.8rem, 14vw, 5rem); letter-spacing: 0.15em; }
+    .hero-monogram { letter-spacing: 0.4em; }
+
+    #fleet { padding: 80px 0; }
+    .fleet-header { padding: 0 24px; flex-direction: column; align-items: flex-start; gap: 16px; }
+    .vehicle-item { grid-template-columns: 40px 1fr auto; padding: 20px 24px; gap: 16px; }
+    .vehicle-category { display: none; }
+
+    .preview-inner { grid-template-columns: 1fr; height: 90vh; max-width: 95%; overflow-y: auto; }
+    .preview-image { height: 40vh; }
+    .preview-details { padding: 36px 28px; border-left: none; border-top: 1px solid var(--grey-border); }
+
+    #concierge { padding: 80px 24px; }
+    .services-grid { grid-template-columns: 1fr; }
+
+    .reserve-grid { grid-template-columns: 1fr; gap: 48px; }
+    #reserve { padding: 80px 24px; }
+
+    #about { grid-template-columns: 1fr; gap: 48px; padding: 80px 24px; }
+    .about-visual { aspect-ratio: 16/9; }
+
+    footer { padding: 60px 24px 36px; }
+    .footer-social { gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- NAVIGATION -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">LR</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#fleet">Fleet</a></li>
+    <li><a href="#concierge">Concierge</a></li>
+    <li><a href="#about">Experience</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#reserve" class="nav-reserve">Reserve</a></li>
+  </ul>
+  <div class="nav-toggle" id="nav-toggle" onclick="toggleNav()">
+    <span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-video-bg"></div>
+  <div class="hero-content">
+    <span class="hero-monogram">L R</span>
+    <h1 class="hero-title">LUXURY<br>RENTALS</h1>
+    <p class="hero-est">Established 2023</p>
+    <p class="hero-tagline">Gauteng's private luxury mobility concierge.</p>
+    <a href="#reserve" class="btn-reserve">Reserve Experience</a>
+  </div>
+  <div class="hero-scroll-indicator">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- FLEET -->
+<section id="fleet">
+  <div class="fleet-header reveal">
+    <div>
+      <p class="section-label">Private Inventory</p>
+      <h2 class="section-title">The Collection</h2>
+    </div>
+    <div class="fleet-count">11</div>
+  </div>
+  <div class="vehicle-list" id="vehicle-list"></div>
+</section>
+
+<!-- VEHICLE PREVIEW MODAL -->
+<div class="vehicle-preview" id="vehicle-preview">
+  <div class="preview-inner">
+    <div class="preview-image">
+      <img id="preview-img" src="" alt="">
+    </div>
+    <div class="preview-details">
+      <div>
+        <p class="preview-label">Selected Vehicle</p>
+        <h3 class="preview-name" id="preview-name"></h3>
+        <p class="preview-category" id="preview-cat"></p>
+        <div class="preview-specs" id="preview-specs"></div>
+      </div>
+      <div class="preview-actions">
+        <a class="btn-whatsapp" id="preview-wa1" href="#" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          Enquire on WhatsApp
+        </a>
+        <a class="btn-whatsapp" id="preview-wa2" href="#" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          Alternative Line
+        </a>
+      </div>
+    </div>
+  </div>
+  <button class="preview-close" id="preview-close">✕ Close</button>
+</div>
+
+<!-- CONCIERGE -->
+<section id="concierge">
+  <div class="concierge-header reveal">
+    <p class="section-label">Bespoke Services</p>
+    <h2 class="section-title">Private Concierge</h2>
+  </div>
+  <div class="services-grid reveal">
+    <div class="service-card">
+      <span class="service-icon">💍</span>
+      <h3 class="service-name">Weddings</h3>
+      <p class="service-desc">Luxury arrival experiences curated for your most significant moment</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🕊</span>
+      <h3 class="service-name">Funerals</h3>
+      <p class="service-desc">Executive black fleet — dignity and discretion in grief</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">✦</span>
+      <h3 class="service-name">Matric Farewell</h3>
+      <p class="service-desc">Prestige arrival packages for life's memorable milestones</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🛣</span>
+      <h3 class="service-name">Road Trips</h3>
+      <p class="service-desc">Luxury self-drive escapes across Southern Africa's finest routes</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">◆</span>
+      <h3 class="service-name">Private Chauffeur</h3>
+      <p class="service-desc">Professional, discreet executive mobility on your terms</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">✈</span>
+      <h3 class="service-name">Airport Transfers</h3>
+      <p class="service-desc">Luxury collection from OR Tambo and surrounding airports</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">⬡</span>
+      <h3 class="service-name">Corporate Mobility</h3>
+      <p class="service-desc">Executive business transport for Gauteng's elite professionals</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">★</span>
+      <h3 class="service-name">VIP Event Access</h3>
+      <p class="service-desc">Concerts, launches, galas, private events — arrive as intended</p>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVE -->
+<section id="reserve">
+  <div class="reveal">
+    <p class="section-label">Reservation</p>
+    <h2 class="section-title">Reserve Your Arrival</h2>
+  </div>
+  <div class="reserve-grid">
+    <div class="reserve-form reveal">
+      <div class="form-field">
+        <label>Full Name</label>
+        <input type="text" autocomplete="name">
+      </div>
+      <div class="form-field">
+        <label>Contact Number</label>
+        <input type="tel">
+      </div>
+      <div class="form-field">
+        <label>Event Type</label>
+        <select>
+          <option value="" disabled selected></option>
+          <option>Wedding</option>
+          <option>Funeral</option>
+          <option>Matric Farewell</option>
+          <option>Road Trip</option>
+          <option>Airport Transfer</option>
+          <option>Corporate</option>
+          <option>VIP Event</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>Vehicle Selection</label>
+        <select id="form-vehicle">
+          <option value="" disabled selected></option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>Date</label>
+        <input type="date">
+      </div>
+      <div class="form-field">
+        <label>Pickup Location</label>
+        <input type="text">
+      </div>
+      <div class="form-field">
+        <label>Chauffeur Required</label>
+        <select>
+          <option value="" disabled selected></option>
+          <option>Yes — Professional Driver</option>
+          <option>No — Self Drive</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>Special Requests</label>
+        <textarea></textarea>
+      </div>
+      <br>
+      <a href="https://wa.me/27646842566?text=Good%20day%2C%20I%20would%20like%20to%20make%20a%20reservation%20with%20Luxury%20Rentals."
+         class="btn-reserve"
+         target="_blank"
+         id="form-submit"
+         style="display:block;text-align:center;margin-top:16px;">
+        Connect With Concierge
+      </a>
+    </div>
+    <div class="reserve-info reveal">
+      <p class="reserve-quote">"Refined mobility, executed with precision and absolute discretion."</p>
+      <div class="contact-options">
+        <a href="https://wa.me/27646842566" target="_blank" class="contact-item">
+          <span>📱</span>
+          <span>064 684 2566</span>
+        </a>
+        <a href="https://wa.me/27662450867" target="_blank" class="contact-item">
+          <span>📱</span>
+          <span>066 245 0867</span>
+        </a>
+        <a href="https://instagram.com/luxary.rentals" target="_blank" class="contact-item">
+          <span>◉</span>
+          <span>@luxary.rentals</span>
+        </a>
+      </div>
+      <div style="border-top:1px solid var(--grey-border);padding-top:32px;">
+        <p class="section-label" style="margin-bottom:20px;">Coverage Area</p>
+        <div class="coverage-list">
+          <span class="coverage-tag">Johannesburg</span>
+          <span class="coverage-tag">Sandton</span>
+          <span class="coverage-tag">Pretoria</span>
+          <span class="coverage-tag">Midrand</span>
+          <span class="coverage-tag">Fourways</span>
+          <span class="coverage-tag">OR Tambo</span>
+          <span class="coverage-tag">Gauteng</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-visual reveal"></div>
+  <div class="about-body reveal">
+    <p class="section-label">The House</p>
+    <h2 class="section-title" style="margin-bottom:32px;">Luxury,<br><em style="font-style:italic;color:rgba(255,255,255,0.5);">without excess.</em></h2>
+    <p class="about-copy">"Founded in 2023, Luxury Rentals delivers refined private mobility experiences throughout Gauteng."</p>
+    <p class="about-detail">Combining precision service, elite performance vehicles, and discreet concierge execution — we curate arrivals, not simply transport. Every engagement is personal. Every vehicle, immaculate. Every experience, unforgettable.</p>
+    <p class="section-label" style="margin-bottom:16px;">Operating Across</p>
+    <div class="coverage-list">
+      <span class="coverage-tag">Johannesburg</span>
+      <span class="coverage-tag">Sandton</span>
+      <span class="coverage-tag">Pretoria</span>
+      <span class="coverage-tag">Midrand</span>
+      <span class="coverage-tag">Fourways</span>
+      <span class="coverage-tag">OR Tambo Region</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-monogram">LR</div>
+  <p class="footer-name">Luxury Rentals</p>
+  <p class="footer-sub">Established 2023 · Gauteng, South Africa</p>
+  <div class="footer-social">
+    <a href="https://instagram.com/luxary.rentals" target="_blank" class="social-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
+      Instagram
+    </a>
+    <div class="footer-divider"></div>
+    <a href="https://wa.me/27646842566" target="_blank" class="social-link">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      WhatsApp
+    </a>
+    <div class="footer-divider"></div>
+    <a href="mailto:info@luxuryrentals.co.za" class="social-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8l10 6 10-6"/></svg>
+      Email
+    </a>
+  </div>
+  <p class="footer-legal">© 2025 Luxury Rentals · Gauteng · All Rights Reserved</p>
+</footer>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────────
+const vehicles = [
+  {
+    name: "Lamborghini Urus",
+    category: "Super SUV",
+    image: "https://images.unsplash.com/photo-1619097763751-2881df85ed25?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    specs: { Type: "Super SUV", Origin: "Sant'Agata", Seats: "5", Drive: "AWD" },
+  },
+  {
+    name: "Mercedes-AMG G63",
+    category: "Luxury SUV",
+    image: "https://images.unsplash.com/photo-1654618345032-e3f3909750a8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YW1nJTIwZzYzfGVufDB8fDB8fHww",
+    specs: { Type: "Luxury SUV", Engine: "4.0L V8 Biturbo", Seats: "5", Drive: "4MATIC" },
+  },
+  {
+    name: "Brabus G63",
+    category: "Ultra Performance SUV",
+    image: "https://images.unsplash.com/photo-1546933751-22670568bacf?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    specs: { Type: "Ultra SUV", Origin: "Bottrop, DE", Seats: "5", Drive: "4MATIC+" },
+  },
+  {
+    name: "BMW M2",
+    category: "Performance Coupé",
+    image: "https://images.unsplash.com/photo-1576289681078-d32a1bdcf9b5?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    specs: { Type: "Performance Coupé", Engine: "3.0L S58", Seats: "4", Drive: "RWD" },
+  },
+  {
+    name: "Mercedes-Benz C200",
+    category: "Executive Saloon",
+    image: "https://images.unsplash.com/photo-1584936684506-c3a7086e8212?q=80&w=847&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    specs: { Type: "Executive Saloon", Engine: "1.5L Turbo", Seats: "5", Drive: "RWD" },
+  },
+  {
+    name: "Mercedes-AMG C63 S",
+    category: "Performance Saloon",
+    image: "https://images.unsplash.com/photo-1600005896822-bc3f31549775?q=80&w=869&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    specs: { Type: "Performance Saloon", Engine: "4.0L V8", Seats: "5", Drive: "RWD" },
+  },
+  {
+    name: "Mercedes-AMG A35",
+    category: "Hot Hatch",
+    image: "https://images.unsplash.com/photo-1682594232758-b9d0877813eb?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    specs: { Type: "Hot Hatch", Engine: "2.0L Turbo", Seats: "5", Drive: "4MATIC" },
+  },
+  {
+    name: "BMW 325i",
+    category: "Sports Saloon",
+    image: "https://images.unsplash.com/photo-1659057011466-3565cd9a24e6?q=80&w=464&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    specs: { Type: "Sports Saloon", Engine: "2.5L Inline-6", Seats: "5", Drive: "RWD" },
+  },
+  {
+    name: "Mercedes-Benz V-Class",
+    category: "Luxury Minivan",
+    image: "https://i.pinimg.com/1200x/8e/be/e0/8ebee05cc4a64984601a6d9c40ac384e.jpg",
+    specs: { Type: "Luxury Van", Engine: "2.0L CDI", Seats: "7–8", Drive: "RWD" },
+  },
+];
+
+const wa1 = "27646842566";
+const wa2 = "27662450867";
+
+// ─── BUILD VEHICLE LIST ─────────────────────────────────────────────────────
+const list = document.getElementById('vehicle-list');
+const formVehicle = document.getElementById('form-vehicle');
+
+vehicles.forEach((v, i) => {
+  const row = document.createElement('div');
+  row.className = 'vehicle-item reveal';
+  row.innerHTML = `
+    <span class="vehicle-index">0${i+1}</span>
+    <span class="vehicle-name">${v.name}</span>
+    <span class="vehicle-category">${v.category}</span>
+    <span class="vehicle-status"><span class="status-dot available"></span>Available</span>
+  `;
+  row.addEventListener('click', () => openPreview(v));
+  list.appendChild(row);
+
+  const opt = document.createElement('option');
+  opt.textContent = v.name;
+  formVehicle.appendChild(opt);
+});
+
+// ─── VEHICLE PREVIEW ────────────────────────────────────────────────────────
+const preview = document.getElementById('vehicle-preview');
+const previewImg = document.getElementById('preview-img');
+const previewName = document.getElementById('preview-name');
+const previewCat = document.getElementById('preview-cat');
+const previewSpecs = document.getElementById('preview-specs');
+const previewWa1 = document.getElementById('preview-wa1');
+const previewWa2 = document.getElementById('preview-wa2');
+
+function openPreview(v) {
+  previewImg.src = v.image;
+  previewImg.alt = v.name;
+  previewName.textContent = v.name;
+  previewCat.textContent = v.category;
+  previewSpecs.innerHTML = Object.entries(v.specs).map(([k, val]) =>
+    `<div class="spec-row"><span class="spec-key">${k}</span><span class="spec-val">${val}</span></div>`
+  ).join('');
+  const msg = encodeURIComponent(`Good day, I'm interested in reserving the ${v.name}. Please advise on availability.`);
+  previewWa1.href = `https://wa.me/${wa1}?text=${msg}`;
+  previewWa2.href = `https://wa.me/${wa2}?text=${msg}`;
+  preview.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+document.getElementById('preview-close').addEventListener('click', () => {
+  preview.classList.remove('active');
+  document.body.style.overflow = '';
+});
+
+preview.addEventListener('click', (e) => {
+  if (e.target === preview) {
+    preview.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+});
+
+// ─── CURSOR ─────────────────────────────────────────────────────────────────
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+function animateCursor() {
+  cursor.style.left = mx + 'px';
+  cursor.style.top = my + 'px';
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+// ─── NAV SCROLL ─────────────────────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ─── MOBILE NAV ─────────────────────────────────────────────────────────────
+function toggleNav() {
+  document.getElementById('nav-links').classList.toggle('open');
+}
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => document.getElementById('nav-links').classList.remove('open'));
+});
+
+// ─── SCROLL REVEAL ──────────────────────────────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, idx) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), idx * 60);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ─── WHATSAPP FORM ──────────────────────────────────────────────────────────
+document.getElementById('form-submit').addEventListener('click', function(e) {
+  e.preventDefault();
+  const fields = document.querySelectorAll('#reserve input, #reserve select, #reserve textarea');
+  const data = {};
+  ['Full Name','Contact','Event','Vehicle','Date','Pickup','Chauffeur','Requests'].forEach((k, i) => {
+    if (fields[i]) data[k] = fields[i].value;
+  });
+  let msg = `*Luxury Rentals — Reservation Request*\n\n`;
+  Object.entries(data).forEach(([k, v]) => { if (v) msg += `*${k}:* ${v}\n`; });
+  window.open(`https://wa.me/${wa1}?text=${encodeURIComponent(msg)}`, '_blank');
+});
+</script>
+</body>
+</html>
